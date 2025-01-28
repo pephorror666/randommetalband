@@ -4,6 +4,7 @@ import random
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from bs4 import BeautifulSoup
+import urllib.parse
 
 # Last.fm API key
 lastfm_api_key = "41e86ee4787f1a444ba944478a89190c"
@@ -113,6 +114,18 @@ def generate_share_text(artist_name, tags, spotify_url, bandcamp_url):
     share_text = f"I'm listening to {artist_name} {hashtags_str}\n{links_str}"
     return share_text
 
+def get_mastodon_share_url(text):
+    # Mastodon share URL (using a popular instance as an example)
+    mastodon_instance = "https://mastodon.social"
+    encoded_text = urllib.parse.quote(text)
+    return f"{mastodon_instance}/share?text={encoded_text}"
+
+def get_bluesky_share_url(text):
+    # Bluesky share URL (using their web interface)
+    bluesky_instance = "https://bsky.app"
+    encoded_text = urllib.parse.quote(text)
+    return f"{bluesky_instance}/compose?text={encoded_text}"
+
 def display_artist_info(artist_info, spotify_url, bandcamp_url, image_url):
     st.write(f"**Name:** {artist_info.get('name', 'N/A')}")
     
@@ -144,8 +157,16 @@ def display_artist_info(artist_info, spotify_url, bandcamp_url, image_url):
     # Generate share text
     if tags:
         share_text = generate_share_text(artist_info.get('name', 'N/A'), tag_names, spotify_url, bandcamp_url)
+        
+        # Mastodon and Bluesky share buttons
         st.write("**Share:**")
-        st.code(share_text)
+        col1, col2 = st.columns(2)
+        with col1:
+            mastodon_url = get_mastodon_share_url(share_text)
+            st.markdown(f"[Share on Mastodon]({mastodon_url})", unsafe_allow_html=True)
+        with col2:
+            bluesky_url = get_bluesky_share_url(share_text)
+            st.markdown(f"[Share on Bluesky]({bluesky_url})", unsafe_allow_html=True)
 
 # Streamlit app
 def main():
