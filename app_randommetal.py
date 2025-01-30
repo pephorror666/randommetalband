@@ -2,51 +2,117 @@ import streamlit as st
 import pandas as pd
 import random
 
-# Load the CSV data
+# Cargar los datos CSV
 @st.cache_data
 def load_data():
     return pd.read_csv("metal_records.csv")
 
-# Function to get a random record, excluding artists already shown
+# Función para obtener un registro aleatorio, excluyendo artistas ya mostrados
 def get_random_record(df, shown_artists):
     available_records = df[~df['Band'].isin(shown_artists)]
     if available_records.empty:
-        st.warning("All artists have been shown. Resetting the list.")
+        st.warning("Todos los artistas han sido mostrados. Reiniciando la lista.")
         shown_artists.clear()
         available_records = df
     random_record = available_records.sample(n=1).iloc[0]
     shown_artists.append(random_record['Band'])
     return random_record
 
-# Initialize session state to keep track of shown artists
+# Inicializar el estado de la sesión para mantener un registro de los artistas mostrados
 if 'shown_artists' not in st.session_state:
     st.session_state.shown_artists = []
+if 'current_record' not in st.session_state:
+    st.session_state.current_record = None
 
-# Load the data
+# Cargar los datos
 df = load_data()
 
-# Get a random record
-record = get_random_record(df, st.session_state.shown_artists)
+# Obtener un registro aleatorio al inicio
+if st.session_state.current_record is None:
+    st.session_state.current_record = get_random_record(df, st.session_state.shown_artists)
 
-# Display the record in a nice HTML card
+# Custom CSS to style the app
 st.markdown(
-    f"""
-    <div style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="{record['Image URL']}" alt="{record['Album']}" style="width: 200px; border-radius: 10px;">
-        <h2>{record['Band']}</h2>
-        <h3>{record['Album']}</h3>
-        <p><strong>Genre:</strong> {record['Genre']}</p>
-        <a href="{record['Spotify URL']}" target="_blank" style="text-decoration: none;">
-            <button style="background-color: #1DB954; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                Listen on Spotify
-            </button>
-        </a>
-    </div>
+    """
+    <style>
+    /* Style for the card */
+    .card {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        margin-bottom: 20px;
+    }
+    /* Style for the band name (all caps) */
+    .band-name {
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    /* Style for the album and genre (capitalize first letter of each word) */
+    .album, .genre {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 8px;
+        text-transform: capitalize;
+    }
+    /* Style for the Spotify link */
+    .spotify-link {
+        display: inline-block;
+        background-color: #1DB954;
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    /* Style for the image */
+    .album-image {
+        max-width: 50%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+    /* Style for the button */
+    .stButton button {
+        width: 100%;
+        background-color: #1DB954;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+    .stButton button:hover {
+        background-color: #1ED760;
+    }
+    </style>
     """,
     unsafe_allow_html=True
 )
 
-# Button to get a new random record
-if st.button("Get Another Random Record"):
-    record = get_random_record(df, st.session_state.shown_artists)
-    st.experimental_rerun()
+# Mostrar el registro en una tarjeta HTML agradable
+if st.session_state.current_record is not None:
+    record = st.session_state.current_record
+    st.markdown(
+        f"""
+        <div class="card">
+            <div class="band-name">{record['Band']}</div>
+            <div class="album"><strong>Álbum:</strong> {record['Album']}</div>
+            <div class="genre"><strong>Género:</strong> {record['Genre']}</div>
+            <a class="spotify-link" href="{record['Spotify URL']}" target="_blank">Escuchar en Spotify</a>
+            <img class="album-image" src="{record['Image URL']}" alt="{record['Band']} - {record['Album']}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Mostrar el botón debajo de la tarjeta
+if st.button("Obtener nuevo artista", key="unique_button"):
+    st.session_state.current_record = get_random_record(df, st.session_state.shown_artists)
+    st.experimental_rerun()  # Force the app to rerun and update the card
