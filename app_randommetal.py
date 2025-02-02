@@ -72,6 +72,7 @@ st.markdown(
         text-decoration: none;
         font-weight: bold;
         margin-top: 10px;
+        width: 100%;
     }
 
     /* Style for the image */
@@ -112,7 +113,7 @@ if st.session_state.current_record is not None:
             <div class="band-name">{record['Band']}</div>
             <div class="album"><strong>Álbum:</strong> {record['Album']}</div>
             <div class="genre"><strong>Género:</strong> {record['Genre']}</div>
-            <a class="spotify-link" href="{record['Spotify URL']}" target="_blank">Escuchar en Spotify</a>
+            <a class="spotify-link" href="{record['Spotify URL']}" target="_blank">Listen on Spotify</a>
             <img class="album-image" src="{record['Image URL']}" alt="{record['Band']} - {record['Album']}">
         </div>
         """,
@@ -120,6 +121,6 @@ if st.session_state.current_record is not None:
     )
 
 # Mostrar el botón debajo de la tarjeta
-if st.button("Obtener nuevo artista", key="unique_button"):
+if st.button("Random Record", key="unique_button"):
     st.session_state.current_record = get_random_record(df, st.session_state.shown_artists)
     #st.experimental_rerun()  # Force the app to rerun and update the card
