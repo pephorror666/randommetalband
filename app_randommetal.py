@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import random
 
+# SET PAGE CONFIG
+st.set_page_config(page_title="RandomMetal", page_icon="manometa.png", layout="centered", initial_sidebar_state="auto", menu_items=None)
+
 # Cargar los datos CSV
 @st.cache_data
 def load_data():
