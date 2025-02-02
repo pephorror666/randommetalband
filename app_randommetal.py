@@ -37,28 +37,31 @@ st.markdown(
     <style>
     /* Style for the card */
     .card {
-        border: 1px solid #ddd;
+        border: 1px solid #444;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        background-color: #1E1E1E;
         margin-bottom: 20px;
     }
+
     /* Style for the band name (all caps) */
     .band-name {
         font-size: 28px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #333;
+        color: #E0E0E0;
         margin-bottom: 10px;
     }
+
     /* Style for the album and genre (capitalize first letter of each word) */
     .album, .genre {
         font-size: 18px;
-        color: #555;
+        color: #B0B0B0;
         margin-bottom: 8px;
         text-transform: capitalize;
     }
+
     /* Style for the Spotify link */
     .spotify-link {
         display: inline-block;
@@ -70,6 +73,7 @@ st.markdown(
         font-weight: bold;
         margin-top: 10px;
     }
+
     /* Style for the image */
     .album-image {
         max-width: 50%;
@@ -77,6 +81,7 @@ st.markdown(
         border-radius: 5px;
         margin-top: 15px;
     }
+
     /* Style for the button */
     .stButton button {
         width: 100%;
@@ -88,9 +93,11 @@ st.markdown(
         border: none;
         cursor: pointer;
     }
+
     .stButton button:hover {
         background-color: #1ED760;
     }
+
     </style>
     """,
     unsafe_allow_html=True
