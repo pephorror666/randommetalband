@@ -6,3 +6,4 @@ add_record_to_db.py
 add_list_of_records.py
 fix_genre2.py
 records_to_add.csv
+backup_metal_records.csv
