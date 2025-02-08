@@ -41,3 +41,37 @@ The application uses a CSV file (`metal_records.csv`) as its database. This file
 
 You can install these dependencies using pip:
 
+pip install streamlit pandas
+text
+
+## Running Locally (Optional)
+
+While the app is designed to be run on Streamlit Community Cloud, you can also run it locally:
+
+1.  Make sure you have Python installed.
+2.  Install the dependencies.
+3.  Navigate to the directory containing `app_randommetal.py` in your terminal.
+4.  Run the app using:
+
+streamlit run app_randommetal.py
+text
+
+## Potential Improvements
+
+*   **Genre Filtering:** Allow users to filter by metal subgenre.
+*   **Search Functionality:** Implement a search bar to find specific bands or albums.
+*   **User Ratings/Reviews:** Integrate a system for users to rate and review albums.
+*   **Expand the Dataset:** Add more albums to the database.
+
+## Contributing
+
+Contributions are welcome!  Please feel free to submit pull requests with bug fixes, new features, or improvements to the documentation.
+
+## License
+
+[If you use my code please just give me the credit for it]
+[Specify the license under which your code is released.  For example:  MIT License, Apache 2.0, or GPLv3.  If you don't want to specify a license, state "No License".]
+
+## Author
+
+[Pep Horror - https://metalhead.club/@pephorror - @pephorror.bsky.social ]
