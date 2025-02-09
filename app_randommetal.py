@@ -114,6 +114,9 @@ st.markdown(
     a:link {
         color: #1DB954;
         }
+    a:visited {
+        color: #1DB954;
+        }
     .genre-link {
         color: #1DB954;
         text-decoration: none;
