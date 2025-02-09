@@ -144,9 +144,10 @@ url_params = st.query_params
 #genre_filter_from_url = url_params.get("genre_filter", None)
 genre_filter_from_url = query_params.get("genre_filter")
 if genre_filter_from_url:
-    st.session_state.genre_filter = genre_filter_from_url[0]
+    genre = genre_filter_from_url
+    st.session_state.genre_filter = genre
     st.session_state.shown_artists = []
-    st.session_state.current_record = get_random_record(df, st.session_state.shown_artists, st.session_state.genre_filter)
+st.session_state.current_record = get_random_record(df, st.session_state.shown_artists, st.session_state.genre_filter)
 
 
 # Mostrar el registro en una tarjeta HTML agradable
