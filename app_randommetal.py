@@ -171,7 +171,8 @@ if st.session_state.current_record is not None:
 if st.button("Get Another Random Metal Record"):
     st.session_state.genre_filter = None
     # Add this line to clear the genre_filter from the URL
-    st.experimental_set_query_params(genre_filter=None)
+    #st.experimental_set_query_params(genre_filter=None)
+    st.query_params.clear()
     st.session_state.current_record = get_random_record(df, st.session_state.shown_artists)
     st.rerun()
     #st.experimental_rerun() ### when locally to run in my laptop change rerun for experimental_rerun
