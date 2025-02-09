@@ -140,14 +140,14 @@ def format_genres_as_links(genres):
 
 #Get the genre filter from the URL
 #url_params = st.experimental_get_query_params()  ### This line is the one that works locally the next one for the online app in streamlit community cloud
-url_params = st.query_params
+query_params = st.query_params
 #genre_filter_from_url = url_params.get("genre_filter", None)
 genre_filter_from_url = query_params.get("genre_filter")
 if genre_filter_from_url:
     genre = genre_filter_from_url
     st.session_state.genre_filter = genre
     st.session_state.shown_artists = []
-st.session_state.current_record = get_random_record(df, st.session_state.shown_artists, st.session_state.genre_filter)
+    st.session_state.current_record = get_random_record(df, st.session_state.shown_artists, st.session_state.genre_filter)
 
 
 # Mostrar el registro en una tarjeta HTML agradable
