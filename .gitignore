@@ -12,3 +12,4 @@ app_randommetal2.py
 app_randommetal3.py
 backup_app_randommetal.py
 db_stats.py
+genre_stats.csv
