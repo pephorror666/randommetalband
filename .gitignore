@@ -13,3 +13,5 @@ app_randommetal3.py
 backup_app_randommetal.py
 db_stats.py
 genre_stats.csv
+copy_to_metal_records.csv
+.cache
