@@ -11,3 +11,4 @@ get_3_genres_to_new_csv.py
 app_randommetal2.py
 app_randommetal3.py
 backup_app_randommetal.py
+db_stats.py
